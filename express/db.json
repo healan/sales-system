@@ -1,0 +1,8 @@
+{
+    "host": "192.168.2.52",
+    "user" : "root",
+    "password": "dongil2014",
+    "port": "3306",
+    "database":"sales",
+    "validationQuery":"SELECT 1"
+} 

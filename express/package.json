@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "date-utils": "^1.2.21",
+    "iconv-lite": "^0.6.3",
+    "multer": "^1.4.5-lts.1",
+    "mysql": "^2.18.1"
+  },
+  "type": "module"
+}
