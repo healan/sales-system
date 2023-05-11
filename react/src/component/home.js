@@ -40,7 +40,7 @@ export default function Home(){
                               height="50"
                               variant="contained"
                               sx={{ mt: 3, mb: 2 }}
-                             
+                              onClick={()=>{navigate('/sales')}}
                             >
                             판매량 입력
                         </Button>
@@ -49,6 +49,7 @@ export default function Home(){
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            onClick={()=>{navigate('/profit')}}
                         >
                             매출/이익 확인
                         </Button>

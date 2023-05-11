@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <RecoilRoot>
     <React.StrictMode>
-      <App />
+        <App />
     </React.StrictMode>
   </RecoilRoot>
 );

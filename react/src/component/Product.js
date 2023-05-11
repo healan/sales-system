@@ -10,21 +10,17 @@ import Paper from '@mui/material/Paper';
 import { DataGrid} from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useRecoilState } from 'recoil';
-import { productmodalState } from './state.js';
-import moment from 'moment';
 import {URL} from '../config.js';
 import axios from 'axios';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import { useNavigate } from 'react-router-dom';
 const mdTheme = createTheme();
 
 export default function Product(){
+    const navigate = useNavigate();
     const [rows, setRows] = useState([]);
     const [prodCd, setProdCd] = useState();
     const [open, setOpen] = React.useState(false);
@@ -37,7 +33,7 @@ export default function Product(){
 
     const columns = [
         { field: 'rowno', headerName: '순번', width: 150, editable: false,},
-        { field: 'prod_cd', headerName: '제품코드', width: 150, editable: true,},
+        { field: 'prod_cd', headerName: '제품코드', width: 150, editable: false,},
         { field: 'pur_price', headerName: '사입가(원)', width: 150, editable: true,
             valueFormatter: params => formatNumber(params.value)},
         { field: 'sale_price', headerName: '판매가(원)', width: 150, editable: true,
@@ -51,6 +47,7 @@ export default function Product(){
     const loadData = async() => {
         await axios.get(URL+'/api/srchProduct/')
                    .then((res) => {
+                       console.log(55, res.data);
                        setRows(res.data.rows);
                    });
     };
@@ -64,8 +61,6 @@ export default function Product(){
     };
 
     const handeAddProd = async(newProductData)=> {
-        console.log(48, newProductData);
-
         await axios.post(URL+'/api/addProduct/', newProductData)
                    .then((res) => {
                        console.log(52, res);
@@ -94,11 +89,11 @@ export default function Product(){
             alert('삭제 항목을 선택하여주세요.');
             return;
         };
-        console.log(97, prodCd);
         let cf = window.confirm('전체 데이터가 삭제됩니다. 계속 하시겠습니까?');
         if(cf == true){
             await axios.delete(URL+'/api/delProduct/'+prodCd)
                 .then((res) => {
+                    console.log(100, res);
                     loadData();
                 });
         }else{
@@ -116,9 +111,14 @@ export default function Product(){
         };
 
         if( newData.code == ''){
-            alert('제품코드를 입력하여 주세요.')
-        }else{
-            console.log(88, newData);
+            alert('제품코드를 입력하여 주세요.');
+        }else if(newData.purprice == ''){
+            alert('사입가격을 입력하여 주세요.');
+        }
+        else if(newData.saleprice == ''){
+            alert('판매가격을 입력하여 주세요.');
+        }
+        else{
             handeAddProd(newData);
         };
       };
@@ -178,6 +178,7 @@ export default function Product(){
                     <Grid item>
                         <Button variant="contained" size='small' sx={{minWidth:90, maxWidth:90, mt:2}} onClick={handleClickOpen}>추가</Button>
                         <Button variant="contained" size='small' sx={{minWidth:90, maxWidth:90, mt:2, ml:1}} onClick={handelDelProd}>삭제</Button>
+                        <Button variant="outlined" size='small' sx={{minWidth:90, maxWidth:90, mt:2, ml:1}} onClick={()=>{navigate('/home')}}>홈으로</Button>
                     </Grid>
                 </Grid>
              </Container>    
@@ -201,6 +202,7 @@ export default function Product(){
                     <TextField
                         autoFocus
                         margin="dense"
+                        required
                         id="purprice"
                         name='purprice'
                         label="사입가(원)"
@@ -210,6 +212,7 @@ export default function Product(){
                     <TextField
                         autoFocus
                         margin="dense"
+                        required
                         id="saleprice"
                         name='saleprice'
                         label="판매가(원)"

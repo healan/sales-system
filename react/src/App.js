@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from './component/login';
 import Home from './component/home';
 import Product from "./component/Product.js";
-// import Bom from './component/Bom';
+import Sales from "./component/Sales.js";
+import Profit from './component/Profit';
+
 function App() {
   return (
     <div className="App">
@@ -13,7 +15,8 @@ function App() {
           <Route path="/" element={<Login />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/product" element={<Product />}></Route>
-          {/* <Route path="/bom" element={<Bom />}></Route> */}
+          <Route path="/sales" element={<Sales />}></Route>
+          <Route path="/profit" element={<Profit />}></Route>
         </Routes>
       </Router>
     </div>
