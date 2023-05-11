@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import pkg from 'body-parser';
 import { srchProduct, addProduct, updateProduct, delProduct, 
-        srchQuantity, updateQuantity, srchProfit
+        srchQuantity, updateQuantity, srchProfit, srchInventory, updateInventory
         } from './api.js';
 
 const { json, urlencoded } = pkg;
@@ -22,6 +22,9 @@ app.get('/api/srchQuantity/', srchQuantity);
 app.put('/api/updateQuantity/', updateQuantity);
 
 app.get('/api/srchProfit/:dt', srchProfit);
+
+app.get('/api/srchInventory/', srchInventory);
+app.put('/api/updateInventory/', updateInventory);
 
 app.listen(port, ()=> 
     console.log(`Listening on port ${port}`)

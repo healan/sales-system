@@ -46,7 +46,10 @@ export function addProduct(req, res){
     let params2 = [prod_cd];
     let sql2 = 'insert into quantity (prod_cd) values (?);';
 
-    let sql = mysql.format(sql1, params1) + mysql.format(sql2, params2);
+    let params3 = [prod_cd];
+    let sql3 = 'insert into inventory (prod_cd) values (?);';
+
+    let sql = mysql.format(sql1, params1) + mysql.format(sql2, params2) + mysql.format(sql3, params3);
 
     connection.query(sql,
         (err) => {
@@ -78,7 +81,8 @@ export function delProduct(req, res){
     let params = [projId];
     let sql1 = 'delete from quantity where prod_cd=?;';
     let sql2 = 'delete from product where prod_cd=?;';
-    let sql = mysql.format(sql1, params) + mysql.format(sql2, params);
+    let sql3 = 'delete from inventory where prod_cd=?;';
+    let sql = mysql.format(sql1, params) + mysql.format(sql2, params) + mysql.format(sql3, params);
 
     connection.query(sql,
         (err) => {
@@ -135,6 +139,37 @@ export function srchProfit(req, res){
                 res.send({
                     rows
                 });
+        });
+};
+
+export function srchInventory(req, res){
+    let sql = 'select row_number() over() as rowno, p.prod_cd, p.pur_price, p.sale_price , i.invt_cnt'
+            + ' from product p left join inventory i on p.prod_cd = i.prod_cd order by rowno, p.prod_cd;';
+    connection.query(sql,
+        (err, rows) => {
+            if(err)
+                res.send(err);
+            else
+                res.send({
+                    rows
+                });
+        });
+};
+
+export function updateInventory(req, res){
+    let id = req.body.id;
+    let i_field = req.body.field;
+    let field = i_field.substr(4)
+    let value = req.body.value;
+    let sql = 'update inventory set '+ field +' = (select '+ field +' from inventory where prod_cd = ?) + ? where prod_cd =?;';
+    console.log(164, id, field, value, sql);
+    let params = [id, value, id];
+    connection.query(sql, params,
+        (err) => {
+            if(err)
+                res.send(err);
+            else    
+                res.send(200);
         });
 };
 

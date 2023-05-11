@@ -6,6 +6,7 @@ import Home from './component/home';
 import Product from "./component/Product.js";
 import Sales from "./component/Sales.js";
 import Profit from './component/Profit';
+import Inventory from './component/Inventory';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/product" element={<Product />}></Route>
           <Route path="/sales" element={<Sales />}></Route>
           <Route path="/profit" element={<Profit />}></Route>
+          <Route path="/inventory" element={<Inventory />}></Route>
         </Routes>
       </Router>
     </div>

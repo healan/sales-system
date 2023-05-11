@@ -65,6 +65,15 @@ export default function Home(){
                         <Button
                             size='large'
                             fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                            onClick={()=>{navigate('/inventory')}}
+                        >
+                            현재 재고량 확인
+                        </Button>
+                        <Button
+                            size='large'
+                            fullWidth
                             variant="outlined"
                             sx={{ mt: 3, mb: 2 }}
                             onClick={()=>{navigate('/')}}
