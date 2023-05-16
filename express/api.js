@@ -114,12 +114,13 @@ export function updateQuantity(req, res){
     let value = req.body.value;
     let sql = 'update quantity set '+ field +' = (select '+ field +' from quantity where prod_cd = ?) + ?, sale_date = CURDATE() where prod_cd = ?;';
     let params = [id, value, id];
+    console.log(117, sql, id, value, id);
     connection.query(sql, params,
         (err) => {
             if(err)
                 res.send(err);
             else    
-                res.send(200);
+                res.send(200, res.data);
         });
 };
 

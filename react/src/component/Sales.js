@@ -61,7 +61,7 @@ export default function Sales(){
             .then((res) => {
                 if(res.status == 200){
                     
-                    
+                    console.log(64, res);
                     
                     loadData();
                 }else{
