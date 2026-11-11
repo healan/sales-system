@@ -1,44 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 
-const drawerWidth = 260;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+const AppBar = styled(MuiAppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+  backgroundColor: '#263447',
+  color: '#f4f6f8',
+  boxShadow: '0 2px 12px rgba(25, 39, 56, 0.12)',
 }));
 
 export default function NavBarContent() {
 
   return (
   <>
-    <AppBar position="absolute">
-    <Toolbar>
+    <AppBar position="absolute" elevation={0}>
+    <Toolbar sx={{ minHeight: '68px !important', position: 'relative', justifyContent: 'center' }}>
       <Typography
           component="h1"
-          variant="h6"
-          color="inherit"
+          variant="subtitle1"
+          sx={{ color: 'inherit', fontWeight: 700, letterSpacing: '0.04em', textAlign: 'center' }}
           noWrap
-          sx={{ flexGrow: 1 }}
         >
-          제품 판매 정보 시스템
+          Product Sales Information System
       </Typography>
     </Toolbar>
   </AppBar>
