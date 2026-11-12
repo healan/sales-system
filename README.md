@@ -1,66 +1,66 @@
 # Product Sales Information System
 
-A small product sales and inventory application with a React frontend and an Express backend. The active backend stores data in JSON files, so it can run without a database server.
+**A clear daily view of what you sell, what you earn, and what you need to restock.**
 
-## Features
+The Product Sales Information System is a lightweight management tool for small, product-based businesses. It brings product prices, sales quantities, revenue, gross profit, and on-hand stock into one straightforward workflow.
 
-- **Dashboard** — current-month revenue and gross profit, sales by product, inventory summary, and shortcuts to the main workflows.
-- **Sales entry** — enter quantities by product. Saving adds to the product's cumulative quantity and records a dated sales-history entry with the prices in effect at the time of sale.
-- **Revenue and profit** — review monthly revenue, gross profit, margin, month-over-month changes, daily revenue, low-margin products, and export product totals as CSV.
-- **Product management** — search products, add products, edit purchase and sale prices, and delete selected products.
-- **Inventory** — review stock levels, identify low or out-of-stock products, and add incoming stock.
-- **Sign-in** — verify the demo user's credentials against a locally stored password hash.
+## Main dashboard
 
-## Architecture
+The dashboard gives owners and staff a quick operational snapshot: monthly revenue and gross profit, products sold, low-stock items, best-selling products, and shortcuts to common tasks.
 
-```mermaid
-flowchart LR
-    Browser[React app<br/>localhost:9999] -->|HTTP / Axios| API[Express API<br/>localhost:9998]
-    API --> Handlers[jsonApi.js<br/>request handling and data operations]
-    Handlers --> Products[(product.json)]
-    Handlers --> Quantities[(quantity.json)]
-    Handlers --> Inventory[(inventory.json)]
-    Handlers --> History[(sales_history.json)]
-    Handlers --> Users[(users.json)]
-```
+![Dashboard preview showing monthly revenue, gross profit, product sales, stock levels, and quick actions](docs/dashboard-preview.svg)
 
-The frontend uses the API routes listed below. `express/server.js` connects those routes to `express/jsonApi.js`. The JSON files under `express/data/` are the active source of truth; the server does not open a database connection.
+The preview uses the included demo data for November 2026. The dashboard itself updates from the current data files when the application runs.
 
-## Data files
+## Useful across different product businesses
 
-| File | Purpose | Main fields |
-| --- | --- | --- |
-| `express/data/product.json` | Product catalog and current prices | `prod_cd`, `pur_price`, `sale_price` |
-| `express/data/quantity.json` | Cumulative sales quantity and most recent entry date | `prod_cd`, `sale_cnt`, `sale_date` |
-| `express/data/inventory.json` | Current stock by product | `prod_cd`, `invt_cnt` |
-| `express/data/sales_history.json` | Dated sales entries and price snapshots used for profit reports | `id`, `prod_cd`, `sale_date`, `sale_cnt`, `pur_price`, `sale_price` |
-| `express/data/users.json` | Sign-in usernames and salted password hashes | `username`, `salt`, `password_hash` |
+The system is organized around products, prices, sales quantities, and stock rather than a specific industry. That makes it a practical starting point for businesses with a simple product catalog and a single stock total per item.
 
-Demo product, inventory, and sales-history records are included. Sales history includes sample records for October and November 2026 so the monthly reports and comparisons have data to display.
+| Business type | Example use |
+| --- | --- |
+| Independent retail | Track products and prices, record daily sales, and spot items running low. |
+| Online and social sellers | Keep a simple stock count and review monthly product revenue and gross profit. |
+| Market stalls and pop-up shops | Enter sold quantities after a shift and add newly received stock. |
+| Small wholesalers | Review product-level sales and maintain a basic stock list. |
+| Makers and small brands | Track finished goods, selling prices, and incoming inventory. |
+| Specialty and gift shops | Compare product revenue and identify items that may need replenishing. |
+| Office or maintenance suppliers | Keep consumables and frequently sold supplies visible in one list. |
 
-## API routes
+These are examples of potential use, not industry-specific integrations. The current system does not include customer orders, payments, tax calculations, production recipes, or separate stock by location.
 
-The frontend's existing route paths and payloads are retained. The sign-in route is an addition; the product, sales, profit, and inventory routes continue to serve their existing workflows.
+## A simple everyday workflow
 
-| Method | Route | Purpose |
-| --- | --- | --- |
-| `POST` | `/api/login/` | Validate a username and password |
-| `GET` | `/api/srchProduct/` | List products and prices |
-| `POST` | `/api/addProduct/` | Add a product and initialize its quantity and inventory records |
-| `PUT` | `/api/updateProduct/` | Update a product price |
-| `DELETE` | `/api/delProduct/:id` | Delete product, current quantity, and inventory records; retain sales history |
-| `GET` | `/api/srchQuantity/` | List sales quantities with product prices |
-| `PUT` | `/api/updateQuantity/` | Add a sales quantity and append a sales-history entry |
-| `GET` | `/api/srchProfit/:dt` | Summarize sales history for a `YYYY-MM` month |
-| `GET` | `/api/srchProfitDaily/:dt` | Summarize daily sales history for a `YYYY-MM` month |
-| `GET` | `/api/srchInventory/` | List current inventory with product information |
-| `PUT` | `/api/updateInventory/` | Add incoming units to current inventory |
+1. **Review the dashboard** to see the month's sales and profit, current stock, and low-stock products.
+2. **Record sales** by product. The entered quantity is added to the cumulative quantity and written to dated sales history.
+3. **Record incoming stock** when products arrive. Incoming units are added to the current stock count.
+4. **Maintain the catalog** by adding products or editing their purchase and sale prices.
+5. **Review performance** by month, compare it with the previous month, inspect daily revenue and product margins, or export the product summary as CSV.
+
+The pages use the same product codes, so a product added to the catalog is available in both sales and inventory workflows.
+
+## What is included
+
+- **Dashboard:** monthly revenue and gross profit, units sold, low-stock count, top products by revenue, and quick actions.
+- **Sales entry:** product-level quantity entry with a pending total and a bulk save action.
+- **Revenue and profit:** monthly product breakdown, previous-month comparison, daily revenue trend, configurable low-margin alert, and CSV export.
+- **Product management:** product-code search, product creation, inline price editing, and selected-product deletion.
+- **Inventory:** current stock summary, low-stock and out-of-stock indicators, product search, and incoming-stock entry.
+- **Sign-in:** demo credential verification against a locally stored password hash.
+
+## Demo data and sign-in
+
+The repository includes sample products, inventory, October and November 2026 sales, and a demo user. The dashboard preview and reports use those sample records.
+
+- **Username:** `user1`
+- **Password:** `1234`
+
+The password is stored as a salted scrypt hash in `express/data/users.json`, not as plain text. Replace the demo user before using the system with business data.
 
 ## Run locally
 
-Use a recent Node.js LTS release. Install dependencies in both application folders, then run the backend and frontend in separate terminals.
+Use a recent Node.js LTS release. Start the Express backend and React frontend in separate terminals.
 
-### Express backend
+### Backend
 
 ```bash
 cd express
@@ -68,9 +68,9 @@ npm install
 node server.js
 ```
 
-The API listens on `http://localhost:9998` by default. Set the `port` environment variable to use a different port.
+The API listens on `http://localhost:9998` by default.
 
-### React frontend
+### Frontend
 
 ```bash
 cd react
@@ -78,37 +78,38 @@ npm install
 npm start
 ```
 
-The frontend runs on `http://localhost:9999`. Its API base URL is currently set in `react/src/config.js` to `http://localhost:9998`. Change that value when the API is hosted elsewhere. On Windows, `server.bat` and `client.bat` start the backend and frontend respectively.
+The React application runs on `http://localhost:9999`. Its API base URL is currently `http://localhost:9998` in `react/src/config.js`. On Windows, `server.bat` and `client.bat` can start the backend and frontend in separate windows.
 
-### Demo sign-in
+## How the data is stored
 
-- Username: `user1`
-- Password: `1234`
+The active Express server reads and writes JSON files in `express/data/`; it does not connect to a database.
 
-The password is stored as a salted scrypt hash in `express/data/users.json`; the plaintext demo password is not stored in that file.
+```mermaid
+flowchart LR
+    Staff[Owner or staff] --> Web[React dashboard]
+    Web --> API[Express API]
+    API --> Products[product.json]
+    API --> Sales[quantity.json]
+    API --> Stock[inventory.json]
+    API --> History[sales_history.json]
+    API --> Users[users.json]
+```
 
-## Data behavior
+Each file represents one part of the business: catalog, cumulative sales quantity, current inventory, dated sales history, or users. Sales history stores the prices that applied when a sale was entered, so later price edits do not rewrite past profit calculations. Product deletion removes its current catalog, quantity, and inventory records while preserving historical sales.
 
-- Sales entry adds units to `quantity.json` and appends a separate row to `sales_history.json`.
-- Profit and daily-trend reports are calculated from `sales_history.json` and use the price snapshots saved with each sale.
-- Incoming inventory adds units to `inventory.json`.
-- Editing a product's current price does not change prices already captured in sales history.
-- Deleting a product removes its current product, quantity, and inventory records. Historical sales remain available to reports.
-- Writes to each individual JSON file use a temporary file followed by a rename. Mutations are queued within one running Node.js process.
+## Using it with real business data
 
-## Using it in a real environment
+The JSON-backed setup works best for a demo or a small, single-server installation. Before using it as an operational business system:
 
-This setup is intended for demos, local evaluation, or a small single-server deployment. Before using it for live business data:
+- Replace the demo account and add proper account management, access controls, login throttling, and persistent sessions. The current sign-in verifies credentials but does not protect API routes with an authenticated session.
+- Keep `express/data/` on durable storage, restrict access to the service account, schedule backups, and test that backups can be restored.
+- Run a single backend instance. Writes are queued within that process, but separate instances or manual file edits can overwrite each other's changes.
+- Use HTTPS, restrict cross-origin access to the frontend, and configure the frontend API address for the deployment environment.
+- Move to a transactional database or another concurrency-safe store if several people or locations need to update records at the same time.
+- Treat the included sales history as sample data. Historical daily activity cannot be reconstructed from cumulative quantities unless those events were recorded in sales history.
 
-1. **Replace the demo credentials.** Use managed user accounts, strong password policies, login throttling, session or token management, and authorization checks. The current login route verifies credentials, but the React routes are not protected by a persistent authenticated session.
-2. **Protect the service.** Serve the app over HTTPS, restrict CORS to the approved frontend origin, validate and limit request sizes, and keep the JSON directory and backups readable only by the service account.
-3. **Plan for persistence and recovery.** Keep `express/data/` on durable storage, schedule backups, and test restoring a backup. Editing JSON files manually while the server is running can overwrite concurrent changes.
-4. **Keep one backend instance.** The in-process write queue coordinates mutations only inside one Node.js process. Multiple instances, multiple hosts, or concurrent external file edits can cause lost updates. For those workloads, use a database or a storage service with transactions and concurrency control.
-5. **Configure environments separately.** Move the frontend API base URL to environment-specific configuration and run the React production build behind a web server or reverse proxy. Do not expose demo accounts or sample business data in a public deployment.
-6. **Check historical coverage.** The included October–November 2026 sales records are demo data. New daily and monthly reports reflect entries recorded in `sales_history.json`; past dates cannot be reconstructed from cumulative quantities alone.
+## A flexible starting point
 
-## Extending the system
+The workflow is split into product, sales, profit, inventory, and sign-in areas, with the frontend communicating through Express routes. This provides room to add business-specific features without tying the screens to one type of shop. Future additions could include product categories, barcode scanning, purchase receipts, returns, multiple stock locations, staff roles, and data import/export.
 
-The frontend and backend are separated by stable HTTP routes, and the active data is organized by business entity. This makes it possible to add workflows incrementally while keeping existing screens and API contracts intact. For example, a returns feature could add a returns data model, its own routes, and a React screen. A repository layer can later replace JSON persistence with SQL or another store behind the same routes, allowing the user interface to remain unchanged.
-
-As usage grows, useful additions include role-based access, audit logs, stock adjustments and returns, configurable low-stock thresholds, and automated data backup and restore.
+As the business grows, JSON persistence can be replaced with a database behind the existing route boundary. The current interface and workflows can then evolve independently from the storage layer.
