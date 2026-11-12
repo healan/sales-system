@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import NavBarContent from '../layout/Navbar.js';
@@ -7,25 +7,41 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
-import { USER } from '../config.js';
+import axios from 'axios';
+import { URL } from '../config.js';
 export default function Login(){
-    const mdTheme = createTheme();
+    const mdTheme = createTheme({
+        palette: {
+            primary: { main: '#344a63', dark: '#263447', contrastText: '#ffffff' },
+            background: { default: '#f5f7fb', paper: '#ffffff' },
+        },
+        shape: { borderRadius: 9 },
+    });
     const navigate = useNavigate();
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     
-    const handleSubmit = (event) => {
-        event.preventDefault(); 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const loginData = {
-          id: data.get('id'),
-          password: data.get('password'),
-        };
-       
-        if (loginData.id == USER.id && loginData.password == USER.pw){
-            navigate('/home');
-        }else{
-            alert('로그인 정보를 다시 확인하여주세요.')
-        };
+        setError('');
+        setLoading(true);
+        try {
+            const response = await axios.post(`${URL}/api/login/`, {
+                username: data.get('id'),
+                password: data.get('password'),
+            });
+            if (response.data.authenticated) navigate('/home');
+            else setError('Invalid username or password.');
+        } catch (requestError) {
+            setError(requestError.response?.status === 401
+                ? 'Invalid username or password.'
+                : 'Could not reach the sign-in service. Check that the server is running.');
+        } finally {
+            setLoading(false);
+        }
       };
     return (  
         <>
@@ -33,51 +49,51 @@ export default function Login(){
           <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <NavBarContent />
-            <Box
-              component="main"
-              sx={{
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'light'
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[900],
-                flexGrow: 1,
-                height: '100vh',
-                overflow: 'auto',
-              }}
-            >
-              <Toolbar />
-              <Container maxWidth="lg" sx={{ mt:20, mb: 4,  width:500 }}>   
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1,}}>
+            <Box component="main" className="login-main">
+              <Toolbar sx={{ minHeight: '68px !important' }} />
+              <Container maxWidth="sm" className="login-container">
+                    <Box className="login-card">
+                      <div className="login-heading">
+                        <span className="login-mark">PS</span>
+                        <span className="login-eyebrow">PRODUCT SALES SYSTEM</span>
+                        <h1>Sign in</h1>
+                        <p>Sign in to view your product sales dashboard.</p>
+                      </div>
+                      <Box component="form" noValidate onSubmit={handleSubmit} className="login-form">
                         <TextField
-                            margin="normal"
                             required
                             fullWidth
                             id="id"
-                            label="아이디"
+                            label="Username"
                             name="id"
                             autoComplete="id"
                             autoFocus
+                            className="login-field"
                         />
                         <TextField
-                            margin="normal"
                             required
                             fullWidth
                             name="password"
-                            label="비밀번호"
+                            label="Password"
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            className="login-field"
                         />
+                        {error && <div className="login-error" role="alert">{error}</div>}
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            className="login-submit"
+                            disabled={loading}
+                            startIcon={loading ? <CircularProgress size={16} color="inherit" /> : null}
                         >
-                            로그인
+                            {loading ? 'Signing in…' : 'Sign in'}
                         </Button>
+                      </Box>
                     </Box>
-             </Container>    
+              </Container>
             </Box>
           </Box>
         </ThemeProvider>

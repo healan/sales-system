@@ -1,0 +1,10 @@
+[
+  { "prod_cd": "MUG-CERAMIC", "sale_cnt": 15, "sale_date": "2026-11-04" },
+  { "prod_cd": "DESK-LAMP", "sale_cnt": 7, "sale_date": "2026-11-10" },
+  { "prod_cd": "NOTEBOOK-A5", "sale_cnt": 32, "sale_date": "2026-11-11" },
+  { "prod_cd": "TOTE-BAG", "sale_cnt": 11, "sale_date": "2026-11-09" },
+  { "prod_cd": "WATER-BOTTLE", "sale_cnt": 15, "sale_date": "2026-11-11" },
+  { "prod_cd": "PHONE-STAND", "sale_cnt": 4, "sale_date": "2026-11-07" },
+  { "prod_cd": "USB-CABLE", "sale_cnt": 33, "sale_date": "2026-11-11" },
+  { "prod_cd": "KEYBOARD-MINI", "sale_cnt": 5, "sale_date": "2026-11-08" }
+]

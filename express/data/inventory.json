@@ -1,0 +1,10 @@
+[
+  { "prod_cd": "MUG-CERAMIC", "invt_cnt": 24 },
+  { "prod_cd": "DESK-LAMP", "invt_cnt": 6 },
+  { "prod_cd": "NOTEBOOK-A5", "invt_cnt": 53 },
+  { "prod_cd": "TOTE-BAG", "invt_cnt": 0 },
+  { "prod_cd": "WATER-BOTTLE", "invt_cnt": 18 },
+  { "prod_cd": "PHONE-STAND", "invt_cnt": 3 },
+  { "prod_cd": "USB-CABLE", "invt_cnt": 70 },
+  { "prod_cd": "KEYBOARD-MINI", "invt_cnt": 8 }
+]

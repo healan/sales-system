@@ -1,0 +1,22 @@
+[
+  { "id": 1, "prod_cd": "MUG-CERAMIC", "sale_date": "2026-10-03", "sale_cnt": 8, "pur_price": 4500, "sale_price": 8900 },
+  { "id": 2, "prod_cd": "DESK-LAMP", "sale_date": "2026-10-07", "sale_cnt": 4, "pur_price": 14500, "sale_price": 24900 },
+  { "id": 3, "prod_cd": "NOTEBOOK-A5", "sale_date": "2026-10-08", "sale_cnt": 20, "pur_price": 1800, "sale_price": 3900 },
+  { "id": 4, "prod_cd": "TOTE-BAG", "sale_date": "2026-10-10", "sale_cnt": 6, "pur_price": 5500, "sale_price": 12900 },
+  { "id": 5, "prod_cd": "WATER-BOTTLE", "sale_date": "2026-10-13", "sale_cnt": 9, "pur_price": 6200, "sale_price": 14900 },
+  { "id": 6, "prod_cd": "PHONE-STAND", "sale_date": "2026-10-17", "sale_cnt": 2, "pur_price": 8700, "sale_price": 17900 },
+  { "id": 7, "prod_cd": "USB-CABLE", "sale_date": "2026-10-20", "sale_cnt": 18, "pur_price": 2100, "sale_price": 5900 },
+  { "id": 8, "prod_cd": "KEYBOARD-MINI", "sale_date": "2026-10-24", "sale_cnt": 3, "pur_price": 18500, "sale_price": 32900 },
+  { "id": 9, "prod_cd": "MUG-CERAMIC", "sale_date": "2026-11-01", "sale_cnt": 3, "pur_price": 4500, "sale_price": 8900 },
+  { "id": 10, "prod_cd": "DESK-LAMP", "sale_date": "2026-11-02", "sale_cnt": 1, "pur_price": 14500, "sale_price": 24900 },
+  { "id": 11, "prod_cd": "NOTEBOOK-A5", "sale_date": "2026-11-03", "sale_cnt": 5, "pur_price": 1800, "sale_price": 3900 },
+  { "id": 12, "prod_cd": "MUG-CERAMIC", "sale_date": "2026-11-04", "sale_cnt": 4, "pur_price": 4500, "sale_price": 8900 },
+  { "id": 13, "prod_cd": "TOTE-BAG", "sale_date": "2026-11-05", "sale_cnt": 5, "pur_price": 5500, "sale_price": 12900 },
+  { "id": 14, "prod_cd": "WATER-BOTTLE", "sale_date": "2026-11-07", "sale_cnt": 6, "pur_price": 6200, "sale_price": 14900 },
+  { "id": 15, "prod_cd": "PHONE-STAND", "sale_date": "2026-11-07", "sale_cnt": 2, "pur_price": 8700, "sale_price": 17900 },
+  { "id": 16, "prod_cd": "KEYBOARD-MINI", "sale_date": "2026-11-08", "sale_cnt": 2, "pur_price": 18500, "sale_price": 32900 },
+  { "id": 17, "prod_cd": "TOTE-BAG", "sale_date": "2026-11-09", "sale_cnt": 5, "pur_price": 5500, "sale_price": 12900 },
+  { "id": 18, "prod_cd": "DESK-LAMP", "sale_date": "2026-11-10", "sale_cnt": 3, "pur_price": 14500, "sale_price": 24900 },
+  { "id": 19, "prod_cd": "NOTEBOOK-A5", "sale_date": "2026-11-11", "sale_cnt": 7, "pur_price": 1800, "sale_price": 3900 },
+  { "id": 20, "prod_cd": "USB-CABLE", "sale_date": "2026-11-11", "sale_cnt": 15, "pur_price": 2100, "sale_price": 5900 }
+]

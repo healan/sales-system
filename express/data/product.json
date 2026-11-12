@@ -1,0 +1,10 @@
+[
+  { "prod_cd": "MUG-CERAMIC", "pur_price": 4500, "sale_price": 8900 },
+  { "prod_cd": "DESK-LAMP", "pur_price": 14500, "sale_price": 24900 },
+  { "prod_cd": "NOTEBOOK-A5", "pur_price": 1800, "sale_price": 3900 },
+  { "prod_cd": "TOTE-BAG", "pur_price": 5500, "sale_price": 12900 },
+  { "prod_cd": "WATER-BOTTLE", "pur_price": 6200, "sale_price": 14900 },
+  { "prod_cd": "PHONE-STAND", "pur_price": 8700, "sale_price": 17900 },
+  { "prod_cd": "USB-CABLE", "pur_price": 2100, "sale_price": 5900 },
+  { "prod_cd": "KEYBOARD-MINI", "pur_price": 18500, "sale_price": 32900 }
+]

@@ -1,0 +1,7 @@
+[
+  {
+    "username": "user1",
+    "salt": "sales-system-demo-user1",
+    "password_hash": "6ae5d93a44148bac27469bbf4145464771cb9518c21030ce8457785e7fe6f983808b7176dc9c412e0235b3355195cd4397010a8896040774c2635480c78d6268"
+  }
+]
