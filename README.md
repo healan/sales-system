@@ -26,8 +26,6 @@ The system is organized around products, prices, sales quantities, and stock rat
 | Specialty and gift shops | Compare product revenue and identify items that may need replenishing. |
 | Office or maintenance suppliers | Keep consumables and frequently sold supplies visible in one list. |
 
-These are examples of potential use, not industry-specific integrations. The current system does not include customer orders, payments, tax calculations, production recipes, or separate stock by location.
-
 ## A simple everyday workflow
 
 1. **Review the dashboard** to see the month's sales and profit, current stock, and low-stock products.
@@ -46,17 +44,6 @@ The pages use the same product codes, so a product added to the catalog is avail
 - **Product management:** product-code search, product creation, inline price editing, and selected-product deletion.
 - **Inventory:** current stock summary, low-stock and out-of-stock indicators, product search, and incoming-stock entry.
 - **Sign-in:** demo credential verification against a locally stored password hash.
-
-## Using it with real business data
-
-The JSON-backed setup works best for a demo or a small, single-server installation. Before using it as an operational business system:
-
-- Replace the demo account and add proper account management, access controls, login throttling, and persistent sessions. The current sign-in verifies credentials but does not protect API routes with an authenticated session.
-- Keep `express/data/` on durable storage, restrict access to the service account, schedule backups, and test that backups can be restored.
-- Run a single backend instance. Writes are queued within that process, but separate instances or manual file edits can overwrite each other's changes.
-- Use HTTPS, restrict cross-origin access to the frontend, and configure the frontend API address for the deployment environment.
-- Move to a transactional database or another concurrency-safe store if several people or locations need to update records at the same time.
-- Treat the included sales history as sample data. Historical daily activity cannot be reconstructed from cumulative quantities unless those events were recorded in sales history.
 
 ## A flexible starting point
 
